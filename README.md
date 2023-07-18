@@ -39,11 +39,19 @@ We considered a list of pytorch prebuilt CNN models, all the models and their tr
 - Our data will be the pytorch tensors in the `data/image_train_val_with_upsample` directory. We read **data/normalised_image_train_val_with_upsample.csv** into a df, for each class we use 80% of the data for training and 20% for validation. 
 - Using the class `NormalisedImageDataSet` defined in `normalised_image_dataset.py` in directory `audio_preprocessing`, we load the training and validation data into `torch.utils.data.DataLoader`. 
 - Define model, adam optimizer and cross entropy loss function, we use the function `model_training.training` to train our model, where `model_training.py` is in the `model_training_utils` directory. 
-- We implmented early stopping logic in the `model_training.training` function based on the validation accuracy. 
+- We implemented early stopping logic in the `model_training.training` function based on the validation accuracy. 
 - After every epoch of training, we save the model state and the optimizer state in the `models` directory.
 - At the end of the training, we save model in the `models` directory.
 
-
+The models that we have used are 
+<ul>
+<li>[DenseNet169](https://pytorch.org/vision/main/models/generated/torchvision.models.densenet169.html)</li>
+<li>EfficientNet</li>
+<li>ShuffleNet</li>
+<li>regnet_y_3_2gf</li>
+<li>resnet34</li>
+<li>resnext50</li>
+</ul>
 # Model Evaluation on the Test Data
 
 This section is on how we make the test result csv format that can be submitted. This whole process is done in the notebook `model_training_utils/model_predictions.ipynb`, where we use the function `model_eval.evaluate_audio_classes` to do model predictions. `model_eval.py` is in the `model_training_utils` directory. The function `model_eval.evaluate_audio_classes` works as follows:
