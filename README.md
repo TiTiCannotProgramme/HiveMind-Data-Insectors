@@ -45,13 +45,34 @@ We considered a list of pytorch prebuilt CNN models, all the models and their tr
 
 The models that we have used are 
 <ul>
-<li>[DenseNet169](https://pytorch.org/vision/main/models/generated/torchvision.models.densenet169.html)</li>
-<li>EfficientNet</li>
-<li>ShuffleNet</li>
-<li>regnet_y_3_2gf</li>
-<li>resnet34</li>
-<li>resnext50</li>
+<li>
+<a href="https://pytorch.org/vision/main/models/generated/torchvision.models.densenet169.html"> DenseNet169
+</a>
+</li>
+<li>
+<a href="https://pytorch.org/vision/stable/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s"> EfficientNet
+</a>
+</li>
+<li>
+<a href="https://pytorch.org/vision/stable/models/generated/torchvision.models.shufflenet_v2_x2_0.html#torchvision.models.shufflenet_v2_x2_0"> ShuffleNet
+</a>
+</li>
+<li>
+<a href="https://pytorch.org/vision/stable/models/generated/torchvision.models.regnet_y_3_2gf.html#torchvision.models.regnet_y_3_2gf"> regnet_y_3_2gf
+</a>
+</li>
+<li>
+<a href="https://pytorch.org/vision/stable/models/generated/torchvision.models.resnet34.html#torchvision.models.resnet34"> 
+resnet34
+</a>
+</li>
+<li>
+<a href="https://pytorch.org/vision/stable/models/generated/torchvision.models.resnext50_32x4d.html#torchvision.models.resnext50_32x4d"> 
+resnext50
+</a>
+</li>
 </ul>
+
 # Model Evaluation on the Test Data
 
 This section is on how we make the test result csv format that can be submitted. This whole process is done in the notebook `model_training_utils/model_predictions.ipynb`, where we use the function `model_eval.evaluate_audio_classes` to do model predictions. `model_eval.py` is in the `model_training_utils` directory. The function `model_eval.evaluate_audio_classes` works as follows:
