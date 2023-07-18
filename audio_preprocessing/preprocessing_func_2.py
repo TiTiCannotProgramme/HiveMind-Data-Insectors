@@ -120,79 +120,13 @@ def non_normalised_data_generator(
             wav = process_small_wav(wav=wav, chunk_size=chunk_size)
             db_mel_spec = mel_transform_fn(wav)
             db_mel_spec = to_reshaped_tensor(db_mel_spec)
-            if len(wav) < 1024:
-                print("wav")
-                print(path)
             yield image_preprocess_fn(db_mel_spec), label
             continue
         for chunks in split_wav_by_peaks(wav=wav, peaks=peaks, chunk_size=chunk_size):
-            if len(chunks) < 1024:
-                print("chunk")
-                print(len(chunks))
-                print(path)
             db_mel_spec = mel_transform_fn(chunks)
             db_mel_spec = to_reshaped_tensor(db_mel_spec)
             yield image_preprocess_fn(db_mel_spec), label
 
-def non_normalised_data_generator_new(
-    paths: List[str], 
-    labels: List[int], 
-    image_preprocess_fn=resize_function(),
-    mel_transform_fn=calculate_melsp,
-    chunk_size:int=66150,
-    wav_max_amplitude:float=0.5
-):
-    for (path, label) in zip(paths, labels):
-        wav = load_wav(path=path)
-        normalised_wav = normalise_wav(wav=wav, wav_max_amplitude=wav_max_amplitude)
-        peaks = find_wav_peaks(wav=normalised_wav, distance_between_peaks=chunk_size)
-        if peaks is None:
-            wav = process_small_wav(wav=wav, chunk_size=chunk_size)
-            db_mel_spec = mel_transform_fn(wav)
-            db_mel_spec = to_reshaped_tensor(db_mel_spec)
-            if len(wav) < 1024:
-                print("wav")
-                print(path)
-            yield image_preprocess_fn(db_mel_spec), label
-            continue
-        for chunks in split_wav_by_peaks(wav=wav, peaks=peaks, chunk_size=chunk_size):
-            if len(chunks) < 1024:
-                print("chunk")
-                print(len(chunks))
-                print(path)
-            db_mel_spec = mel_transform_fn(chunks)
-            db_mel_spec = to_reshaped_tensor(db_mel_spec)
-            yield image_preprocess_fn(db_mel_spec), label
-
-def non_normalised_data_generator_one_sec(
-    paths: List[str], 
-    labels: List[int], 
-    image_preprocess_fn=resize_function(),
-    mel_transform_fn=calculate_melsp,
-    chunk_size:int=44100,
-    wav_max_amplitude:float=0.5
-):
-    for (path, label) in zip(paths, labels):
-        wav = load_wav(path=path)
-        wav = normalise_wav(wav=wav, wav_max_amplitude=wav_max_amplitude)
-        peaks = find_wav_peaks_with_overlap(wav=wav, distance_between_peaks=chunk_size)
-        if peaks is None:
-            wav = process_small_wav(wav=wav, chunk_size=chunk_size)
-            db_mel_spec = mel_transform_fn(wav)
-            db_mel_spec = to_reshaped_tensor(db_mel_spec)
-            if len(wav) < 1024:
-                print("wav")
-                print(path)
-            yield image_preprocess_fn(db_mel_spec), label
-            continue
-        for chunks in split_wav_by_peaks(wav=wav, peaks=peaks, chunk_size=chunk_size):
-            if len(chunks) < 1024:
-                print("chunk")
-                print(len(chunks))
-                print(path)
-            db_mel_spec = mel_transform_fn(chunks)
-            db_mel_spec = to_reshaped_tensor(db_mel_spec)
-            yield image_preprocess_fn(db_mel_spec), label
 
 def normalise_image(image, mean, std, eps=1e-6):
     """
