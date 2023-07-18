@@ -5,7 +5,6 @@ from collections import Counter
 from typing import List
 import sys
 import math 
-import librosa
 
 sys.path.append('../audio_preprocessing')
 
@@ -15,9 +14,6 @@ def most_common(my_list):
     data = Counter(my_list)
     return data.most_common(1)[0][0]
     
-def resume_model(model, filename):
-    checkpoint = torch.load(filename)
-    model.load_state_dict(checkpoint['model_state'])
 
 def get_device():
     if torch.cuda.is_available():

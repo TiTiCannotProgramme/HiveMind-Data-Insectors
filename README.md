@@ -31,3 +31,23 @@ This whole process is done in the notebook `data/train_val_upsampled_wav_to_imag
 - Normalise the pytorch tensor using the mean and std we calculated before.
 - Save all the tensors as a `.pt` file in the `data/image_train_val_with_upsample` directory.
 - Save the file names and class labels of those pytorch tensors to **data/normalised_image_train_val_with_upsample.csv**.
+
+
+# Model Training
+
+We considered a list of pytorch prebuilt CNN models, all the models and their training notebooks are under the `model_definition_and_training` directory. We assume anyone reading this is familiar with pytorch model training loops, so we won't get into detail, but here's the overview of the training process:
+- Our data will be the pytorch tensors in the `data/image_train_val_with_upsample` directory. We read **data/normalised_image_train_val_with_upsample.csv** into a df, for each class we use 80% of the data for training and 20% for validation. 
+- Using the class `NormalisedImageDataSet` defined in `normalised_image_dataset.py` in directory `audio_preprocessing`, we load the training and validation data into `torch.utils.data.DataLoader`. 
+- Define model, adam optimizer and cross entropy loss function, we use the function `model_training.training` to train our model, where `model_training.py` is in the `model_training_utils` directory. 
+- We implmented early stopping logic in the `model_training.training` function based on the validation accuracy. 
+- After every epoch of training, we save the model state and the optimizer state in the `models` directory.
+- At the end of the training, we save model in the `models` directory.
+
+
+# Model Evaluation on the Test Data
+
+This whole process is done in the notebook `model_training_utils/model_predictions.ipynb`, where we use the function `model_eval.evaluate_audio_classes` to do model predictions. `model_eval.py` is in the `model_training_utils` directory. The function `model_eval.evaluate_audio_classes` works as follows:
+- For each wav in the test data, we process the wav into melspectrograms represented as torch tensors using the preprocessing process defined above. 
+- Feed each of the torch tensors into the list of models.
+- Take the most common predicted class as the final prediction.
+- Save the predictions as csv in the `test_results` directory. 

@@ -51,30 +51,6 @@ def find_wav_peaks(wav:List[float], distance_between_peaks:int=66150) -> List[in
         
     return peaks + start_point
 
-def find_wav_peaks_with_overlap(wav:List[float], distance_between_peaks:int=66150) -> List[int]|None:
-    '''
-    wav is array of floats
-    '''
-    if len(wav) <= distance_between_peaks * 1.05:
-        return None
-    
-    height:float = wav.max()/4
-    start_point:int = math.floor(distance_between_peaks/2)
-    end_point:int = len(wav) - 1 - start_point
-    distance_with_overlap:int = math.floor(distance_between_peaks * 0.55)
-    peaks, _ = signal.find_peaks(wav[start_point:end_point], distance=distance_with_overlap, height=height)
-    
-    if len(peaks) == 0:
-        peaks, _ = signal.find_peaks(wav, distance=distance_with_overlap, height=height)
-        for i in range(len(peaks)):
-            if peaks[i] < start_point:
-                peaks[i] = start_point + 1
-            if peaks[i] + math.floor(distance_between_peaks/2) >= len(wav):
-                peaks[i] = len(wav) - math.floor(distance_between_peaks/2) - 1
-        return peaks
-        
-    return peaks + start_point
-
 def split_wav_by_peaks(wav:List[float], peaks:List[int], chunk_size:int=66150) -> List[List[float]]:
     results: List[List[float]] = []
     half_chunk_size:int = math.floor(chunk_size/2)
