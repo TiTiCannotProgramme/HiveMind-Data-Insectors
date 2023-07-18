@@ -46,7 +46,7 @@ We considered a list of pytorch prebuilt CNN models, all the models and their tr
 
 # Model Evaluation on the Test Data
 
-This whole process is done in the notebook `model_training_utils/model_predictions.ipynb`, where we use the function `model_eval.evaluate_audio_classes` to do model predictions. `model_eval.py` is in the `model_training_utils` directory. The function `model_eval.evaluate_audio_classes` works as follows:
+This section is on how we make the test result csv format that can be submitted. This whole process is done in the notebook `model_training_utils/model_predictions.ipynb`, where we use the function `model_eval.evaluate_audio_classes` to do model predictions. `model_eval.py` is in the `model_training_utils` directory. The function `model_eval.evaluate_audio_classes` works as follows:
 - For each wav in the test data, we process the wav into melspectrograms represented as torch tensors using the preprocessing process defined above. 
 - Feed each of the torch tensors into the list of models.
 - Take the most common predicted class as the final prediction.
