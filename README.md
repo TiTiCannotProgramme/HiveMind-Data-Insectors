@@ -50,7 +50,7 @@ The models that we have used are
 </a>
 </li>
 <li>
-<a href="https://pytorch.org/vision/stable/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s"> EfficientNet
+<a href="https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_b3.html"> EfficientNet
 </a>
 </li>
 <li>
